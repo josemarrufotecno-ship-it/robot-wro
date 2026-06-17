@@ -50,3 +50,42 @@ basic.forever(function () {
     // Pausa de 50ms para mantener el robot fluido y no saturar la señal
     basic.pause(50)
 })
+// Función genérica para controlar el tiempo y la velocidad.
+// Nota: Deberás colocar dentro de esta función los bloques reales de tu controlador de motores (Ej: Wukong, Superbit, etc.)
+function moverRobot(velIzquierda: number, velDerecha: number, tiempoMs: number) {
+    // ⚠️ REEMPLAZA ESTE COMENTARIO CON TUS BLOQUES DE MOTOR ⚠️
+    // Ejemplo si usas Wukong:
+    // wuKong.setAllMotor(velIzquierda, velDerecha)
+
+    // Pausa equivalente al tiempo que mantuviste presionado el control
+    basic.pause(tiempoMs)
+}
+
+input.onButtonPressed(Button.A, function () {
+    // Fase 1: 0.0s a 9.5s 
+    // En tu telemetría los motores estuvieron estáticos o en preparación
+    moverRobot(0, 0, 9500)
+
+    // Fase 2: 9.5s a 14.2s (Aceleración y curva inicial)
+    // El encoder 0 subió más rápido que el 1. Relación de ~1.5 a 1.
+    moverRobot(75, 50, 4700)
+
+    // Fase 3: 14.2s a 19.2s (Avance casi recto y sostenido)
+    // Ambos encoders avanzaron a la misma tasa (~230 puntos por segundo).
+    moverRobot(80, 80, 5000)
+
+    // Fase 4: 19.2s a 24.1s (Mantenimiento de rumbo)
+    // Ligera corrección, el motor derecho redujo mínimamente su giro.
+    moverRobot(75, 70, 4900)
+
+    // Fase 5: 24.1s a 28.3s (Desaceleración y giro de aproximación)
+    // Caída drástica de velocidad. El motor derecho giró más que el izquierdo.
+    moverRobot(30, 45, 4200)
+
+    // Fase 6: 28.3s a 31.5s (Ajuste fino en la posición)
+    // El motor izquierdo retrocedió ligeramente mientras el derecho seguía avanzando.
+    moverRobot(-20, 40, 3200)
+
+    // Freno total (Fin de la rutina cartografiada)
+    moverRobot(0, 0, 0)
+})
