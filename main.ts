@@ -38,8 +38,8 @@ basic.forever(function () {
     }
     // --- PARTE B: TELEMETRÍA (CON LOS CÓDIGOS ENCONTRADOS) ---
     // Usamos AbsAngle (Ángulo Absoluto) para saber la distancia total desde la salida
-    odo_M1 = nezhaV2.readAbsAngle(nezhaV2.MotorPostion.M1)
-    odo_M4 = nezhaV2.readAbsAngle(nezhaV2.MotorPostion.M4)
+    odo_M1 = nezhaV2.readRelAngle(nezhaV2.MotorPostion.M1)
+    odo_M4 = nezhaV2.readRelAngle(nezhaV2.MotorPostion.M4)
     // Leemos los sensores internos de la placa
     brujula = input.compassHeading()
     accel = input.acceleration(Dimension.Y)
